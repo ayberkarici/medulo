@@ -1,0 +1,452 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Medula Eczane - Reçete Paneli</title>
+    <link rel="stylesheet" href="{% static 'core/dashboard.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f6f7; margin: 0; }
+        .container { max-width: 1100px; margin: 30px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #ccc; padding: 24px; }
+        .header { background: #4b5563; color: #fff; padding: 12px 24px; font-size: 1.2rem; font-weight: bold; }
+        .tabs { display: flex; border-bottom: 2px solid #2c3e50; margin-bottom: 16px; }
+        .tab { padding: 10px 24px; cursor: pointer; background: #e9ecef; color: #2c3e50; border: none; outline: none; font-weight: bold; margin-right: 2px; border-radius: 4px 4px 0 0; }
+        .tab.active { background: #2c3e50; color: #fff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .section { margin-bottom: 32px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+        th, td { border: 1px solid #d3d3d3; padding: 8px; text-align: left; }
+        th { background: #e9ecef; }
+        .row { display: flex; gap: 32px; }
+        .col { flex: 1; }
+        .button-row { margin-top: 16px; text-align: right; }
+        .btn { background: #4b5563; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-left: 8px; }
+        .btn.secondary { background: #7f8c8d; }
+        input[type="text"], select { padding: 6px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 4px; }
+        .medula-bar { background: #e5e7eb; color: #222; padding: 8px 24px; font-size: 0.95rem; margin-bottom: 12px; }
+        .medula-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .medula-label { width: 160px; display: inline-block; font-weight: 500; font-size: 0.95rem; }
+        .medula-section-title { background: #4b5563; color: #fff; padding: 8px 16px; border-radius: 4px; font-size: 1rem; margin-bottom: 8px; }
+        .medula-tabs { display: flex; border-bottom: 1px solid #d3d3d3; margin-bottom: 8px; }
+        .medula-tab { padding: 6px 16px; font-size: 0.9rem; border: none; background: #f3f4f6; color: #222; cursor: pointer; margin-right: 2px; }
+        .medula-tab.active { background: #ef4444; color: #fff; }
+        .ilac-tabs { display: flex; border-bottom: 1px solid #d3d3d3; margin-bottom: 8px; }
+        .ilac-tab { padding: 6px 10px; font-size: 12px; border: none; background: #f3f4f6; color: #222; cursor: pointer; margin-right: 2px; border-radius: 4px 4px 0 0; }
+        .ilac-tab.active { background: #ef4444; color: #fff; }
+        .ilac-tab-content { display: none; padding: 12px 0; }
+        .ilac-tab-content.active { display: block; }
+    </style>
+    <script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    window.onload = function() {
+        document.getElementsByClassName('tab')[0].click();
+    }
+
+    function openIlacTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("ilac-tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementById("ilac-bilgi-tabs").getElementsByClassName("ilac-tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    </script>
+</head>
+<body>
+<div class="container">
+    {% if not profile %}
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;">
+        <form method="get" style="margin-bottom:32px;display:flex;flex-direction:column;align-items:center;gap:16px;width:340px;background:#f5f6f7;padding:32px 24px;border-radius:12px;box-shadow:0 2px 12px #e5e7eb;">
+            <label for="tc_no" style="font-weight:bold;font-size:1.1rem;">TC Kimlik No ile Sorgula</label>
+            <input type="text" id="tc_no" name="tc_no" value="{{ tc_no }}" maxlength="11" placeholder="TC Kimlik No" style="padding:10px 16px;border-radius:6px;border:1px solid #bbb;width:220px;font-size:1.1rem;text-align:center;">
+            <button type="submit" class="btn" style="width:120px;font-size:1rem;">Sorgula</button>
+        </form>
+        <div style="margin-bottom:24px;text-align:center;">
+            <div style="font-weight:500;font-size:1rem;margin-bottom:8px;">Kullanılabilir TC Kimlik Numaraları:</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+                {% for p in profiles %}
+                    <form method="get" style="display:inline;">
+                        <input type="hidden" name="tc_no" value="{{ p.tc_no }}">
+                        <button type="submit" class="btn secondary" style="min-width:140px;margin-bottom:4px;">{{ p.tc_no }}</button>
+                    </form>
+                {% endfor %}
+            </div>
+        </div>
+        <div style="margin-top:40px;text-align:center;">
+            <button id="ai-analiz-btn" class="btn" style="background:#ef4444;">AI Analiz</button>
+            <div id="ai-loading" style="display:none;width:120px;height:8px;background:#eee;position:relative;border-radius:4px;overflow:hidden;margin:12px auto 0 auto;">
+                <div id="ai-loading-bar" style="width:0;height:100%;background:#ef4444;transition:width 0.5s;"></div>
+            </div>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('ai-analiz-btn');
+            var loading = document.getElementById('ai-loading');
+            var bar = document.getElementById('ai-loading-bar');
+            if(btn) {
+                btn.onclick = function() {
+                    loading.style.display = 'block';
+                    bar.style.width = '0';
+                    setTimeout(function(){ bar.style.width = '100%'; }, 100);
+                    fetch('/ai-analiz/', {method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}})
+                        .then(r => r.json())
+                        .then(data => {
+                            loading.style.display = 'none';
+                            bar.style.width = '0';
+                            if(data.new_data) {
+                                alert('Yeni veri eklendi!\n' + JSON.stringify(data.new_data, null, 2));
+                                location.reload();
+                            } else {
+                                alert('Hata: ' + (data.error || 'Bilinmeyen hata'));
+                            }
+                        })
+                        .catch(e => { loading.style.display = 'none'; bar.style.width = '0'; alert('Hata: ' + e); });
+                };
+            }
+        });
+        </script>
+    </div>
+    {% endif %}
+    {% if profile %}
+    <div style="display:flex;align-items:center;margin-bottom:12px;">
+        <div style="flex:1;">
+            <form method="get" style="margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+                <label for="tc_no" style="font-weight:bold;">TC Kimlik No:</label>
+                <input type="text" id="tc_no" name="tc_no" value="{{ tc_no }}" maxlength="11" style="padding:6px 12px;border-radius:4px;border:1px solid #ccc;width:180px;">
+                <button type="submit" class="btn">Sorgula</button>
+            </form>
+        </div>
+        <div style="flex:0 0 120px;">
+            <button id="ai-analiz-btn" class="btn" style="width:100%;background:#ef4444;">AI Analiz</button>
+            <div id="ai-loading" style="display:none;width:100%;height:8px;background:#eee;position:relative;border-radius:4px;overflow:hidden;margin-top:4px;">
+                <div id="ai-loading-bar" style="width:0;height:100%;background:#ef4444;transition:width 0.5s;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="header">Reçete</div>
+    <div class="tabs">
+        <button class="tab" onclick="openTab(event, 'kisisel')">Kişisel Bilgiler</button>
+        <button class="tab" onclick="openTab(event, 'recete')">Reçete</button>
+        <button class="tab" onclick="openTab(event, 'ilac')">İlaç Bilgileri</button>
+        <button class="tab" onclick="openTab(event, 'hastalik')">Hastalık Öyküleri</button>
+        <button class="tab" onclick="openTab(event, 'rapor')">Raporlar</button>
+    </div>
+    <div id="kisisel" class="tab-content">
+        <div class="medula-section-title">Kişisel Bilgiler</div>
+        <div class="medula-grid">
+            <div>
+                <label class="medula-label">Reçete Sahibi T.C. (*):</label>
+                <input type="text" value="{{ profile.tc_no }}" readonly>
+            </div>
+            <div>
+                <label class="medula-label">Reçete Sahibi Ad/Soy.:</label>
+                <input type="text" value="{{ profile.first_name }} {{ profile.last_name }}" readonly>
+            </div>
+            <div>
+                <label class="medula-label">Provizyon Tipi:</label>
+                <select><option>Normal</option></select>
+            </div>
+            <div>
+                <label class="medula-label">Reçete Tarihi (*):</label>
+                <input type="text" value="03/10/2023" readonly>
+            </div>
+            <div>
+                <label class="medula-label">Reçete Türü:</label>
+                <select><option>Normal</option></select>
+            </div>
+            <div>
+                <label class="medula-label">Adres:</label>
+                <input type="text" value="{{ profile.address }}" readonly>
+            </div>
+        </div>
+    </div>
+    <div id="recete" class="tab-content">
+        <div class="medula-section-title">Reçete Bilgileri</div>
+        {% if latest_prescription %}
+        <div class="medula-grid">
+            <div>
+                <label class="medula-label">Protokol No (*):</label>
+                <input type="text" value="{{ latest_prescription.protocol_no }}" readonly>
+            </div>
+            <div>
+                <label class="medula-label">Doktor:</label>
+                {% for doc in doctors %}
+                    {% if doc.diploma_no == latest_prescription.doctor_diploma_no %}
+                        <input type="text" value="{{ doc.name }} ({{ doc.branch }})" readonly>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div>
+                <label class="medula-label">Reçete Alt Türü:</label>
+                <select><option>{{ latest_prescription.prescription_subtype }}</option></select>
+            </div>
+            <div>
+                <label class="medula-label">ICD-10 Tanı:</label>
+                {% for code in latest_prescription.icd10_codes %}
+                    {% for diag in diagnoses %}
+                        {% if diag.code == code %}
+                            <input type="text" value="{{ diag.code }} - {{ diag.description }}" readonly><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div>
+                <label class="medula-label">Açıklama:</label>
+                <input type="text" value="{{ latest_prescription.remarks }}" readonly>
+            </div>
+        </div>
+        {% endif %}
+        <div class="button-row">
+            <button class="btn">Kaydet</button>
+            <button class="btn secondary">Yeni Reçete</button>
+            <button class="btn secondary">E-Reçete Sorgu</button>
+            <button class="btn secondary">Önceki Reçete</button>
+            <button class="btn secondary">Sonraki Reçete</button>
+        </div>
+    </div>
+    <div id="ilac" class="tab-content active">
+        <!-- Reçete Bilgileri Kısmı -->
+        <div style="background:#60656d;color:#fff;padding:8px 16px;font-weight:bold;font-size:1.1rem;">Reçete</div>
+        <div style="background:#e5e7eb;color:#222;padding:8px 16px;font-size:0.95rem;margin-bottom:12px;">Reçete No: 0 Karekod Durumu: Kapsamı</div>
+        <div style="border:1px solid #e5e7eb;background:#fff;padding:18px 18px 8px 18px;margin-bottom:18px;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+                <div>
+                    <label style="font-weight:500;font-size:0.95rem;">Reçete Sahibi T.C. (*):</label><br>
+                    <input type="text" value="{{ profile.tc_no }}" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Reçete Sahibi Ad/Soy.:</label><br>
+                    <input type="text" value="{{ profile.first_name }} {{ profile.last_name }}" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Provizyon Tipi:</label><br>
+                    <select style="width:90%;margin-bottom:8px;"><option>Normal</option></select>
+                    <label style="font-weight:500;font-size:0.95rem;">Reçete Tarihi (*):</label><br>
+                    <input type="text" value="03/10/2023" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Reçete Türü:</label><br>
+                    <select style="width:90%;margin-bottom:8px;"><option>Normal</option></select>
+                </div>
+                <div>
+                    <label style="font-weight:500;font-size:0.95rem;">Teslim Alan T.C. (*):</label><br>
+                    <input type="text" value="{{ profile.tc_no }}" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Teslim Alan Ad/Soy.:</label><br>
+                    <input type="text" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Protokol No (*):</label><br>
+                    <input type="text" value="{{ latest_prescription.protocol_no }}" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">İlaç Alım Tarihi (*):</label><br>
+                    <input type="text" value="12/10/2023" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Reçete Alt Türü:</label><br>
+                    <select style="width:90%;margin-bottom:8px;"><option>Ayaktan</option></select>
+                </div>
+                <div>
+                    <label style="font-weight:500;font-size:0.95rem;">İlaçları Teslim Alan:</label><br>
+                    <select style="width:90%;margin-bottom:8px;"><option>Kendisi</option></select>
+                    <label style="font-weight:500;font-size:0.95rem;">Tesis Kodu (*):</label><br>
+                    <input type="text" value="11340040" style="width:60px;margin-right:4px;">
+                    <button style="background:#e5e7eb;border:1px solid #cfd2d6;padding:2px 8px;font-size:12px;">Ara</button>
+                    <button style="background:#ef4444;color:#fff;border:none;padding:2px 8px;font-size:12px;margin-left:2px;">+Lara</button>
+                    <button style="background:#e5e7eb;border:1px solid #cfd2d6;padding:2px 8px;font-size:12px;margin-left:2px;">Bölümler</button><br>
+                    <label style="font-weight:500;font-size:0.95rem;">e-Reçete No:</label><br>
+                    <input type="text" style="width:90%;margin-bottom:8px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Hasta Türü:</label><br>
+                    <input type="text" style="width:90%;background:#ede9fe;margin-bottom:8px;">
+                </div>
+            </div>
+            <div style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:center;">
+                <div>
+                    <label style="font-weight:500;font-size:0.95rem;">Dip.Tesc.No:</label>
+                    <input type="text" value="121285" style="width:60px;margin-right:4px;">
+                    <select style="width:80px;"><option>Hekim</option></select>
+                    <button style="background:#e5e7eb;border:1px solid #cfd2d6;padding:2px 8px;font-size:12px;">Ara</button>
+                </div>
+                <div>
+                    <label style="font-weight:500;font-size:0.95rem;">Dr.Dip.No/Dip.Tesc.No (*):</label>
+                    <input type="text" value="25944/29412" style="width:100px;margin-right:4px;">
+                    <label style="font-weight:500;font-size:0.95rem;">Dr. Ad/Soyad (*):</label>
+                    <input type="text" value="MEHMET BURAK" style="width:120px;">
+                </div>
+                <div>
+                    <label style="font-weight:500;font-size:0.95rem;">Branş (*):</label>
+                    <span style="color:#2563eb;text-decoration:underline;font-size:0.95rem;">Genel Cerrahi (Ana Branş)</span>
+                    <button style="background:#e5e7eb;border:1px solid #cfd2d6;padding:2px 8px;font-size:12px;margin-left:4px;">Seç</button>
+                    <label style="font-weight:500;font-size:0.95rem;margin-left:8px;">Sertifika (*):</label>
+                    <select style="width:80px;"><option>Yok</option></select>
+                    <button style="background:#e5e7eb;border:1px solid #cfd2d6;padding:2px 8px;font-size:12px;margin-left:4px;">Uyarı Kodu</button>
+                    <label style="font-weight:500;font-size:0.95rem;margin-left:8px;">Karekodlu:</label>
+                    <input type="checkbox" style="margin-left:4px;">
+                    <span style="font-size:0.95rem;margin-left:4px;">Sıralı dağıtım reçete</span>
+                </div>
+            </div>
+        </div>
+        <!-- İlaç Bilgileri Tablosu -->
+        <div style="background:#60656d;color:#fff;padding:8px 16px;font-weight:bold;font-size:1.1rem;margin-top:24px;">İlaç Bilgileri</div>
+        <!-- İlaç Bilgileri Tabları -->
+        <div style="margin-top:24px;">
+            <div class="ilac-tabs" id="ilac-bilgi-tabs">
+                <button class="ilac-tab active" onclick="openIlacTab(event, 'ozel-durum')">Özel Durum</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'esdeger')">Eşdeğer</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'toplu-esd')">Toplu Eşd.</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'ilac-bilgi')">İlaç Bilgi</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'sil')">Sil</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'ilac-ara')">İlaç Ara</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'ilac-ekle')">İlaç Ekle</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'rapor')">Rapor</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'recete')">Reçete</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'rapor-kontrol')">Rapor Kontrol</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'ted-sema')">Ted.Şema</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'maj-ilac')">Maj.İlaç</button>
+                <button class="ilac-tab" onclick="openIlacTab(event, 'rapor-sec')">Rapor Seç</button>
+            </div>
+            <div id="ozel-durum" class="ilac-tab-content active"></div>
+            <div id="esdeger" class="ilac-tab-content"></div>
+            <div id="toplu-esd" class="ilac-tab-content"></div>
+            <div id="ilac-bilgi" class="ilac-tab-content"></div>
+            <div id="sil" class="ilac-tab-content"></div>
+            <div id="ilac-ara" class="ilac-tab-content"></div>
+            <div id="ilac-ekle" class="ilac-tab-content"></div>
+            <div id="rapor" class="ilac-tab-content"></div>
+            <div id="recete" class="ilac-tab-content"></div>
+            <div id="rapor-kontrol" class="ilac-tab-content"></div>
+            <div id="ted-sema" class="ilac-tab-content"></div>
+            <div id="maj-ilac" class="ilac-tab-content"></div>
+            <div id="rapor-sec" class="ilac-tab-content"></div>
+        </div>
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;margin-bottom:0;table-layout:fixed;">
+            <thead>
+                <tr style="background:#aeb2b8;color:#fff;">
+                    <th style="padding:4px;text-align:left;width:90px;font-size:11px;">Barkod</th>
+                    <th style="padding:4px;text-align:left;width:180px;font-size:11px;">Adet / Periyot / Doz</th>
+                    <th style="padding:4px;text-align:left;width:200px;font-size:11px;">Adı</th>
+                    <th style="padding:4px;text-align:left;width:60px;font-size:11px;">Tutar</th>
+                    <th style="padding:4px;text-align:left;width:60px;font-size:11px;">Fark</th>
+                    <th style="padding:4px;text-align:left;width:40px;font-size:11px;">Rapor</th>
+                    <th style="padding:4px;text-align:left;width:80px;font-size:11px;">Verilebilecek</th>
+                    <th style="padding:4px;text-align:left;width:40px;font-size:11px;">Msj</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if latest_prescription %}
+                {% for med_barcode in latest_prescription.medications %}
+                    {% for med in medications %}
+                        {% if med.barcode == med_barcode %}
+                        <tr>
+                            <td><input type="checkbox"> <input type="text" value="{{ med.barcode }}" style="width:70px;font-size:11px;padding:1px 2px;"></td>
+                            <td style="white-space:nowrap;">
+                                <input type="text" value="3" style="width:20px;font-size:11px;padding:1px 2px;"> /
+                                <input type="text" value="1" style="width:20px;font-size:11px;padding:1px 2px;"> <select style="width:40px;font-size:11px;padding:1px 2px;"><option>Günde</option></select> /
+                                <input type="text" value="1" style="width:20px;font-size:11px;padding:1px 2px;"> x
+                                <input type="text" value="1,0" style="width:30px;font-size:11px;padding:1px 2px;">
+                            </td>
+                            <td style="font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;">{{ med.name }}</td>
+                            <td style="font-size:11px;">0,00</td>
+                            <td style="font-size:11px;">0,00</td>
+                            <td style="font-size:11px;">14.04</td>
+                            <td style="font-size:11px;">23/09/2025</td>
+                            <td><span style="background:#ef4444;color:#fff;padding:1px 4px;border-radius:3px;font-size:10px;">var</span></td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                {% endif %}
+                {% for i in "123" %}
+                <tr>
+                    <td><input type="checkbox"> <input type="text" style="width:70px;font-size:11px;padding:1px 2px;"></td>
+                    <td style="white-space:nowrap;">
+                        <input type="text" value="0" style="width:20px;font-size:11px;padding:1px 2px;"> /
+                        <input type="text" value="0" style="width:20px;font-size:11px;padding:1px 2px;"> <select style="width:40px;font-size:11px;padding:1px 2px;"><option>Günde</option></select> /
+                        <input type="text" value="0" style="width:20px;font-size:11px;padding:1px 2px;"> x
+                        <input type="text" value="0,0" style="width:30px;font-size:11px;padding:1px 2px;">
+                    </td>
+                    <td style="font-size:11px;"></td>
+                    <td style="font-size:11px;">0,00</td>
+                    <td style="font-size:11px;">0,00</td>
+                    <td style="font-size:11px;"></td>
+                    <td style="font-size:11px;"></td>
+                    <td style="font-size:11px;"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <div style="margin-top:12px;background:#f3f4f6;border:1px solid #cfd2d6;padding:0;">
+            <div style="display:flex;align-items:center;">
+                <button style="background:#60656d;color:#fff;padding:8px 24px;border:none;font-weight:bold;">Ekle</button>
+                <div style="flex:1;padding:8px 24px;font-size:0.95rem;">ICD-10 Sorgula</div>
+                <div style="flex:2;padding:8px 24px;font-size:0.95rem;color:#a94442;font-weight:bold;">E-Reçeteye Girilen Açıklama: Teşhis/Tanı - 17545871 Protokolüne ait reçeteler</div>
+            </div>
+            <table style="width:100%;border-collapse:collapse;">
+                <thead>
+                    <tr style="background:#aeb2b8;color:#fff;">
+                        <th style="padding:6px;text-align:left;width:120px;font-size:11px;">ICD-10</th>
+                        <th style="padding:6px;text-align:left;font-size:11px;">Tanılar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if latest_prescription %}
+                    {% for code in latest_prescription.icd10_codes %}
+                        {% for diag in diagnoses %}
+                            {% if diag.code == code %}
+                            <tr>
+                                <td><input type="text" value="{{ diag.code }}" style="width:100%;font-size:11px;padding:1px 2px;"></td>
+                                <td><input type="text" value="{{ diag.description }}" style="width:100%;font-size:11px;padding:1px 2px;"></td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+                    {% for i in "12" %}
+                    <tr>
+                        <td><input type="text" style="width:100%;font-size:11px;padding:1px 2px;"></td>
+                        <td><input type="text" style="width:100%;font-size:11px;padding:1px 2px;"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="hastalik" class="tab-content">
+        <div class="medula-section-title">Hastalık Öyküleri</div>
+        <table>
+            <tr><th>Tarih</th><th>Tanı</th></tr>
+            {% for history in medical_histories %}
+            <tr>
+                <td>{{ history.date }}</td>
+                <td>{{ history.description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div id="rapor" class="tab-content">
+        <div class="medula-section-title">Raporlar</div>
+        <table>
+            <tr><th>Tarih</th><th>Başlık</th><th>İçerik</th><th>Rapor Kodu</th></tr>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.date }}</td>
+                <td>{{ report.title }}</td>
+                <td>{{ report.content }}</td>
+                <td>{{ report.report_code }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div style="margin-top:32px; color:#888; font-size:13px;">Bugünün tarihi: {{ today }}</div>
+    {% endif %}
+</div>
+</body>
+</html>

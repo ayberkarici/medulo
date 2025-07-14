@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Django
+db.sqlite3
+*.sqlite3
+*.log
+media/
+staticfiles/
+
+# Virtualenv
+venv/
+ENV/
+env/
+.venv/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# System
+Thumbs.db
+
+# Test/coverage
+htmlcov/
+.coverage
+.tox/
+.nox/
+
+# Misc
+*.swp
+*.swo
+
+# Node (if any frontend build)
+node_modules/
+
+# Secret files
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/

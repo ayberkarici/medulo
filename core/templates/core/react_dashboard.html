@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Medula Eczane - React Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      const [profile, setProfile] = React.useState(null);
+      const [doctor, setDoctor] = React.useState(null);
+      const [medications, setMedications] = React.useState([]);
+      const [diagnoses, setDiagnoses] = React.useState([]);
+      const [loading, setLoading] = React.useState(true);
+      const [error, setError] = React.useState(null);
+      React.useEffect(() => {
+        setLoading(true);
+        fetch('/sample-data/')
+          .then(r => r.json())
+          .then(data => {
+            // Use the last profile, prescription, etc.
+            const profile = data.profiles[data.profiles.length-1];
+            const doctor = data.doctors[data.doctors.length-1];
+            const medications = data.medications;
+            const diagnoses = data.diagnoses;
+            setProfile(profile);
+            setDoctor(doctor);
+            setMedications(medications);
+            setDiagnoses(diagnoses);
+            setLoading(false);
+          })
+          .catch(e => { setError('Veri alınamadı: ' + e); setLoading(false); });
+      }, []);
+      const handleProfileChange = (e) => {
+        setProfile({ ...profile, [e.target.name]: e.target.value });
+      };
+      if (loading) return <div className="p-8 text-center"><div className="w-48 h-2 bg-gray-200 mx-auto rounded overflow-hidden"><div className="h-2 bg-red-500 animate-pulse w-full"></div></div><div className="mt-2 text-gray-500 text-sm">Yükleniyor...</div></div>;
+      if (error) return <div className="p-8 text-center text-red-600">{error}</div>;
+      return (
+        <div className="min-h-screen bg-gray-100">
+          <div className="bg-gray-600 text-white">
+            <div className="flex items-center">
+              {['Geri Dön', 'Ana Sayfa', 'İlaç', 'Rapor', 'Muayene', 'End.Dışı'].map((tab) => (
+                <button key={tab} className="px-4 py-2 text-sm font-medium border-r border-gray-500 hover:bg-gray-500">{tab}</button>
+              ))}
+            </div>
+          </div>
+          <div className="p-4">
+            <div className="bg-gray-600 text-white px-4 py-2 mb-4">
+              <h1 className="text-lg font-bold">Reçete</h1>
+            </div>
+            <div className="bg-white border border-gray-300 mb-4">
+              <div className="grid grid-cols-3 gap-4 p-4">
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <label className="w-32 text-sm font-medium">Reçete Sahibi T.C. (*):</label>
+                    <input type="text" name="tc_no" value={profile?.tc_no || ''} onChange={handleProfileChange} className="flex-1 px-2 py-1 border border-gray-300 text-sm" />
+                  </div>
+                  <div className="flex items-center">
+                    <label className="w-32 text-sm font-medium">Reçete Sahibi Ad/Soy.:</label>
+                    <input type="text" name="first_name" value={profile?.first_name || ''} onChange={handleProfileChange} className="flex-1 px-2 py-1 border border-gray-300 text-sm" />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <label className="w-32 text-sm font-medium">Teslim Alan T.C. (*):</label>
+                    <input type="text" name="tc_no" value={profile?.tc_no || ''} onChange={handleProfileChange} className="flex-1 px-2 py-1 border border-gray-300 text-sm" />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <label className="w-32 text-sm font-medium">İlaçları Teslim Alan:</label>
+                    <select className="flex-1 px-2 py-1 border border-gray-300 text-sm"><option>Kendisi</option></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-gray-300 mb-4">
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead className="bg-gray-400 text-white">
+                    <tr>
+                      <th>Barkod</th>
+                      <th>Adet / Periyot / Doz</th>
+                      <th>Adı</th>
+                      <th>Tutar</th>
+                      <th>Fark</th>
+                      <th>Rapor</th>
+                      <th>Verilebilecek</th>
+                      <th>Msj</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {medications.map((med, index) => (
+                      <tr key={index}>
+                        <td><input type="text" value={med.barcode} className="w-24 px-1 py-0.5 border border-gray-300 text-xs" /></td>
+                        <td><input type="text" value={med.dosage} className="w-8 px-1 py-0.5 border border-gray-300 text-xs" /></td>
+                        <td>{med.name}</td>
+                        <td>0,00</td>
+                        <td>0,00</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="bg-white border border-gray-300 mb-4">
+              <table className="w-full text-xs">
+                <thead className="bg-gray-400 text-white">
+                  <tr>
+                    <th>ICD-10</th>
+                    <th>Tanılar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {diagnoses.map((diagnosis, index) => (
+                    <tr key={index}>
+                      <td><input type="text" value={diagnosis.code} className="w-full px-1 py-0.5 border border-gray-300 text-xs" /></td>
+                      <td><input type="text" value={diagnosis.description} className="w-full px-1 py-0.5 border border-gray-300 text-xs" /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
