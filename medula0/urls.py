@@ -16,11 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import dashboard, ai_analiz, sample_data_json
+from core.views import dashboard, sample_data_json
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name='dashboard'),
-    path('ai-analiz/', ai_analiz, name='ai_analiz'),
     path('sample-data/', sample_data_json, name='sample_data_json'),
 ]

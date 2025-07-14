@@ -90,39 +90,6 @@
                 {% endfor %}
             </div>
         </div>
-        <div style="margin-top:40px;text-align:center;">
-            <button id="ai-analiz-btn" class="btn" style="background:#ef4444;">AI Analiz</button>
-            <div id="ai-loading" style="display:none;width:120px;height:8px;background:#eee;position:relative;border-radius:4px;overflow:hidden;margin:12px auto 0 auto;">
-                <div id="ai-loading-bar" style="width:0;height:100%;background:#ef4444;transition:width 0.5s;"></div>
-            </div>
-        </div>
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var btn = document.getElementById('ai-analiz-btn');
-            var loading = document.getElementById('ai-loading');
-            var bar = document.getElementById('ai-loading-bar');
-            if(btn) {
-                btn.onclick = function() {
-                    loading.style.display = 'block';
-                    bar.style.width = '0';
-                    setTimeout(function(){ bar.style.width = '100%'; }, 100);
-                    fetch('/ai-analiz/', {method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}})
-                        .then(r => r.json())
-                        .then(data => {
-                            loading.style.display = 'none';
-                            bar.style.width = '0';
-                            if(data.new_data) {
-                                alert('Yeni veri eklendi!\n' + JSON.stringify(data.new_data, null, 2));
-                                location.reload();
-                            } else {
-                                alert('Hata: ' + (data.error || 'Bilinmeyen hata'));
-                            }
-                        })
-                        .catch(e => { loading.style.display = 'none'; bar.style.width = '0'; alert('Hata: ' + e); });
-                };
-            }
-        });
-        </script>
     </div>
     {% endif %}
     {% if profile %}
@@ -133,12 +100,6 @@
                 <input type="text" id="tc_no" name="tc_no" value="{{ tc_no }}" maxlength="11" style="padding:6px 12px;border-radius:4px;border:1px solid #ccc;width:180px;">
                 <button type="submit" class="btn">Sorgula</button>
             </form>
-        </div>
-        <div style="flex:0 0 120px;">
-            <button id="ai-analiz-btn" class="btn" style="width:100%;background:#ef4444;">AI Analiz</button>
-            <div id="ai-loading" style="display:none;width:100%;height:8px;background:#eee;position:relative;border-radius:4px;overflow:hidden;margin-top:4px;">
-                <div id="ai-loading-bar" style="width:0;height:100%;background:#ef4444;transition:width 0.5s;"></div>
-            </div>
         </div>
     </div>
     <div class="header">Reçete</div>

@@ -1,38 +1,6 @@
 {
   "profiles": [
     {
-      "first_name": "Ayşe",
-      "last_name": "Yılmaz",
-      "tc_no": "12345678901",
-      "birth_date": "1980-05-12",
-      "gender": "Kadın",
-      "address": "İstanbul, Beşiktaş, Akaretler Mah. No: 25"
-    },
-    {
-      "first_name": "Mehmet",
-      "last_name": "Burak",
-      "tc_no": "98765432109",
-      "birth_date": "1975-09-23",
-      "gender": "Erkek",
-      "address": "Ankara, Çankaya, Üsküp Cd. No: 10"
-    },
-    {
-      "first_name": "Ahmet",
-      "last_name": "Kaya",
-      "tc_no": "13579246810",
-      "birth_date": "1992-03-18",
-      "gender": "Erkek",
-      "address": "İzmir, Karşıyaka, Çınar Sk. No: 7"
-    },
-    {
-      "first_name": "Fatma",
-      "last_name": "Demir",
-      "tc_no": "24680135792",
-      "birth_date": "1990-12-30",
-      "gender": "Kadın",
-      "address": "Ankara, Keçiören, Yeşiltepe Mah. No: 45"
-    },
-    {
       "first_name": "Deniz",
       "last_name": "Can",
       "tc_no": "33344455566",
@@ -51,26 +19,6 @@
   ],
   "doctors": [
     {
-      "name": "Mehmet Burak",
-      "diploma_no": "25944/29412",
-      "branch": "Genel Cerrahi"
-    },
-    {
-      "name": "Ayşe Yılmaz",
-      "diploma_no": "12185",
-      "branch": "Dahiliye"
-    },
-    {
-      "name": "Zeynep Demir",
-      "diploma_no": "12345/67890",
-      "branch": "Pediatri"
-    },
-    {
-      "name": "Ali Aksoy",
-      "diploma_no": "38765",
-      "branch": "Kardiyoloji"
-    },
-    {
       "name": "Selin Pekel",
       "diploma_no": "98765",
       "branch": "Dermatoloji"
@@ -79,29 +27,14 @@
       "name": "Murat Erdem",
       "diploma_no": "11223",
       "branch": "Göğüs Hastalıkları"
+    },
+    {
+      "name": "Aslı Yılmaz",
+      "diploma_no": "54321",
+      "branch": "Psikiyatri"
     }
   ],
   "diagnoses": [
-    {
-      "code": "A09",
-      "description": "Gastroenterit"
-    },
-    {
-      "code": "B35",
-      "description": "Mantar enfeksiyonu"
-    },
-    {
-      "code": "I10",
-      "description": "Esansiyel (primer) hipertansiyon"
-    },
-    {
-      "code": "J01",
-      "description": "Akut sinüzit"
-    },
-    {
-      "code": "M54.5",
-      "description": "Servikal radikülopati"
-    },
     {
       "code": "J45.9",
       "description": "Astım, belirtilmemiş"
@@ -115,51 +48,15 @@
       "description": "Yaygın anksiyete bozukluğu"
     },
     {
-      "code": "E11.9",
-      "description": "Tip 2 diabetes mellitus, komplikasyonsuz"
+      "code": "R05",
+      "description": "Öksürük"
+    },
+    {
+      "code": "H10.1",
+      "description": "Akut atopik konjonktivit"
     }
   ],
   "medications": [
-    {
-      "name": "CIPRO 500 MG.14 TB.",
-      "barcode": "8699578090425",
-      "dosage": "1+0+1",
-      "period": "Günde",
-      "amount": 2.0,
-      "unit": "TB"
-    },
-    {
-      "name": "TRAVAZOL %1 + %0,1 KREM (15 G)",
-      "barcode": "8699569350040",
-      "dosage": "1",
-      "period": "Günde",
-      "amount": 1.5,
-      "unit": "KREM"
-    },
-    {
-      "name": "RAMIPRIL 5 MG",
-      "barcode": "8699512345678",
-      "dosage": "1",
-      "period": "Günde",
-      "amount": 1.0,
-      "unit": "TB"
-    },
-    {
-      "name": "AMOKSİL 1000 MG.14 TB.",
-      "barcode": "8699876543210",
-      "dosage": "1+1+1",
-      "period": "Günde",
-      "amount": 3.0,
-      "unit": "TB"
-    },
-    {
-      "name": "PAROL 500 MG.20 TB.",
-      "barcode": "8698745632101",
-      "dosage": "1+1+1",
-      "period": "Günde",
-      "amount": 3.0,
-      "unit": "TB"
-    },
     {
       "name": "VENTOLİN İNHALER (100 mcg/doz) 200 DOZ",
       "barcode": "8699501090012",
@@ -185,118 +82,39 @@
       "unit": "TB"
     },
     {
-      "name": "GLUFOR 1000 MG. 100 TB.",
-      "barcode": "8699767090015",
+      "name": "CETRİN 10 MG TB",
+      "barcode": "8699525090011",
       "dosage": "1",
       "period": "Günde",
       "amount": 1.0,
       "unit": "TB"
+    },
+    {
+      "name": "PULMİCORT TURBUHALER 200 MCG",
+      "barcode": "8699512345678",
+      "dosage": "1 puf x 2",
+      "period": "Günde",
+      "amount": 2.0,
+      "unit": "PUF"
+    },
+    {
+      "name": "FUCİDİN KREM",
+      "barcode": "8699516350010",
+      "dosage": "1",
+      "period": "Günde",
+      "amount": 1.0,
+      "unit": "KREM"
+    },
+    {
+      "name": "CONJUNCADİN GÖZ DAMLASI",
+      "barcode": "8699507890012",
+      "dosage": "2 damla x 2",
+      "period": "Günde",
+      "amount": 4.0,
+      "unit": "DAMLA"
     }
   ],
   "prescriptions": [
-    {
-      "profile_tc_no": "12345678901",
-      "doctor_diploma_no": "25944/29412",
-      "date": "2025-07-13",
-      "protocol_no": "26404592",
-      "provision_type": "Normal",
-      "prescription_type": "Normal",
-      "prescription_subtype": "Ayaktan",
-      "icd10_codes": [
-        "A09"
-      ],
-      "medications": [
-        "8699578090425",
-        "8699569350040"
-      ],
-      "remarks": "Seri dağıtım reçete",
-      "is_latest": true
-    },
-    {
-      "profile_tc_no": "12345678901",
-      "doctor_diploma_no": "12185",
-      "date": "2025-06-20",
-      "protocol_no": "26404593",
-      "provision_type": "Normal",
-      "prescription_type": "Normal",
-      "prescription_subtype": "Ayaktan",
-      "icd10_codes": [
-        "B35"
-      ],
-      "medications": [
-        "8699569350040"
-      ],
-      "remarks": "Önceki reçete",
-      "is_latest": false
-    },
-    {
-      "profile_tc_no": "98765432109",
-      "doctor_diploma_no": "25944/29412",
-      "date": "2025-07-14",
-      "protocol_no": "26404594",
-      "provision_type": "Normal",
-      "prescription_type": "Normal",
-      "prescription_subtype": "Ayaktan",
-      "icd10_codes": [
-        "I10"
-      ],
-      "medications": [
-        "8699512345678"
-      ],
-      "remarks": "Son reçete",
-      "is_latest": true
-    },
-    {
-      "profile_tc_no": "56789012345",
-      "doctor_diploma_no": "12345/67890",
-      "date": "2025-08-20",
-      "protocol_no": "12345678",
-      "provision_type": "Normal",
-      "prescription_type": "Normal",
-      "prescription_subtype": "Ayaktan",
-      "icd10_codes": [
-        "J45.909"
-      ],
-      "medications": [
-        "9876543210987"
-      ],
-      "remarks": "Yeni reçete",
-      "is_latest": true
-    },
-    {
-      "profile_tc_no": "13579246810",
-      "doctor_diploma_no": "12345/67890",
-      "date": "2025-07-20",
-      "protocol_no": "26404595",
-      "provision_type": "Normal",
-      "prescription_type": "Normal",
-      "prescription_subtype": "Ayaktan",
-      "icd10_codes": [
-        "J01"
-      ],
-      "medications": [
-        "8699876543210"
-      ],
-      "remarks": "İlk reçete",
-      "is_latest": true
-    },
-    {
-      "profile_tc_no": "24680135792",
-      "doctor_diploma_no": "38765",
-      "date": "2025-08-05",
-      "protocol_no": "26404594",
-      "provision_type": "Normal",
-      "prescription_type": "Normal",
-      "prescription_subtype": "Muayene Sonrası",
-      "icd10_codes": [
-        "M54.5"
-      ],
-      "medications": [
-        "8698745632101"
-      ],
-      "remarks": "Öğünlerden sonra alınacak",
-      "is_latest": true
-    },
     {
       "profile_tc_no": "33344455566",
       "doctor_diploma_no": "11223",
@@ -306,12 +124,16 @@
       "prescription_type": "Normal",
       "prescription_subtype": "Ayaktan",
       "icd10_codes": [
-        "J45.9"
+        "J45.9",
+        "R05",
+        "H10.1"
       ],
       "medications": [
-        "8699501090012"
+        "8699501090012",
+        "8699525090011",
+        "8699507890012"
       ],
-      "remarks": "Astım kontrolü için reçete edildi.",
+      "remarks": "Astım ve ilişkili semptomlar için reçete edildi.",
       "is_latest": true
     },
     {
@@ -323,116 +145,42 @@
       "prescription_type": "Normal",
       "prescription_subtype": "Ayaktan",
       "icd10_codes": [
-        "L20.9"
+        "L20.9",
+        "F41.1"
       ],
       "medications": [
-        "8699540090010"
+        "8699532350020",
+        "8699540090010",
+        "8699516350010"
       ],
-      "remarks": "Dermatit tedavisi için reçete edildi.",
+      "remarks": "Dermatit ve anksiyete şikayetleri için reçete edildi.",
       "is_latest": true
     }
   ],
   "medical_histories": [
     {
-      "profile_tc_no": "12345678901",
-      "description": "Hasta, 10 Temmuz 2025 tarihinde gastroenterit tanısı ile hastaneye başvurmuştur. Belirtiler arasında karın ağrısı ve ishal yer alıyordu. Tedavi sürecinde sıvı replasmanı ve diyet önerileri yapılmıştır.",
-      "date": "2025-07-10"
-    },
-    {
-      "profile_tc_no": "12345678901",
-      "description": "Mantar enfeksiyonu tanısı 12 Temmuz 2025 tarihinde konmuştur. Hastada kaşıntı ve ciltte kızarıklık gibi semptomlar gözlemlenmiştir. Antifungal krem kullanımı ile tedavi süreci başlatılmıştır.",
-      "date": "2025-07-12"
-    },
-    {
-      "profile_tc_no": "98765432109",
-      "description": "Hipertansiyon tanısı 15 Haziran 2025'te konulmuştur. Hasta düzenli kan basıncı takibi ve ilaç tedavisi önerilmiştir. Ek olarak, yaşam tarzı değişiklikleri için diyetisyen desteği alınması tavsiye edilmiştir.",
-      "date": "2025-06-15"
-    },
-    {
-      "profile_tc_no": "13579246810",
-      "doctor_diploma_no": "12345/67890",
-      "date": "2025-07-20",
-      "complaints": [
-        "Baş ağrısı",
-        "Burun akıntısı"
-      ],
-      "diagnoses": [
-        "J01"
-      ],
-      "medications": [
-        "8699876543210"
-      ],
-      "notes": "Hasta genel durumu iyidir."
-    },
-    {
-      "profile_tc_no": "24680135792",
-      "doctor_diploma_no": "38765",
-      "date": "2025-08-01",
-      "diagnoses": [
-        "M54.5"
-      ],
-      "medications": [
-        "8698745632101"
-      ],
-      "tests": [
-        "MRG Beyin"
-      ],
-      "remarks": "Bel ağrısı şikayeti ile muayeneye başvurdu."
-    },
-    {
       "profile_tc_no": "33344455566",
-      "description": "Hasta, son iki aydır özellikle gece ve egzersiz sırasında artan **nefes darlığı ve hırıltılı solunum** şikayetleriyle başvurdu. Öyküsünde çocukluk çağında alerjik reaksiyonlar ve mevsimsel alerjiler olduğu öğrenildi. Fizik muayenede yaygın ekspiratuar ronküsler saptandı. Solunum fonksiyon testleri (SFT) yapıldı ve reversibilite testi pozitif geldi. Bu bulgular ışığında **Astım (J45.9)** tanısı konuldu. Tedaviye, inhale kortikosteroid ve kısa etkili beta-2 agonist (VENTOLİN) ile başlandı. Hastanın astım eylem planı oluşturuldu ve hasta eğitimi verildi. Yakın takip planlandı.",
+      "description": "Hasta, son üç aydır özellikle gece ve sabahın erken saatlerinde artan, kuru ve inatçı öksürük, nefes darlığı ve göğüste sıkışma şikayetleriyle başvurdu. Ayrıca mevsim geçişlerinde gözlerinde kaşıntı ve kızarıklık, burun akıntısı gibi alerjik semptomlar da eşlik etmekteydi. Öyküsünde çocukluk çağında sık bronşit geçirdiği ve ailesinde astım öyküsü olduğu öğrenildi. Fizik muayenede solunum seslerinde yer yer hırıltılar duyuldu. Solunum fonksiyon testleri (SFT) yapıldı ve önemli ölçüde hava akımı kısıtlılığı ile birlikte bronkodilatör sonrası reversibilite saptandı. Kan testlerinde eozinofili ve total IgE yüksekliği gözlendi. Bu bulgular doğrultusunda Astım (J45.9), Akut Atopik Konjonktivit (H10.1) ve Öksürük (R05) tanısı konuldu. Tedaviye inhale kortikosteroid (PULMİCORT), kısa etkili beta-2 agonist (VENTOLİN) ve oral antihistaminik (CETRİN) ile başlandı. Hastanın şikayetlerinin yaşam kalitesini ciddi şekilde etkilediği, uyku düzeninin bozulduğu ve günlük aktivitelerinde kısıtlamalar yaşadığı belirtildi. Hasta eğitimi, tetikleyicilerden kaçınma yöntemleri ve acil durum eylem planı hakkında detaylı bilgi verildi. Düzenli takip randevuları planlandı.",
       "date": "2025-07-08"
     },
     {
       "profile_tc_no": "77788899900",
-      "description": "Hasta, üç aydır devam eden ve özellikle stresli dönemlerde kötüleşen **yoğun kaşıntı ve ciltte kızarıklık** şikayetleriyle dermatoloji kliniğine başvurdu. Lezyonlar genellikle kol ve bacaklarda, simetrik dağılım göstermekteydi. Daha önce çeşitli nemlendiriciler ve topikal steroidler denemiş ancak fayda görmemişti. Fizik muayenede ekzematöz lezyonlar ve sekonder enfeksiyon belirtileri yoktu. Yapılan alerji testlerinde herhangi bir spesifik alerjen saptanmadı. Atopik dermatit (L20.9) tanısı konuldu. Hastaya topikal kortikosteroid (DERMOVATE) reçete edildi. Ancak, hastanın cilt semptomlarına eşlik eden ve aslında tanıyla doğrudan ilişkili olmayan **yaygın anksiyete bozukluğu (F41.1)** nedeniyle **XANAX** reçete edildiği görüldü. Bu durum, ilacın endikasyon dışı reçete edilmesi açısından değerlendirilmelidir.",
+      "description": "Hasta, yaklaşık beş aydır devam eden, özellikle geceleri şiddetlenen ve uykusunu bölen yoğun kaşıntı ve ciltte kızarıklık şikayetleriyle dermatoloji kliniğine başvurdu. Lezyonlar genellikle dirsek içleri, diz arkaları ve boyun bölgesinde yerleşimliydi ve tekrarlayan çizilmeye bağlı ikincil enfeksiyon belirtileri de mevcuttu. Hastanın stresli dönemlerde semptomlarının arttığını, işyerindeki yoğunluğun ve özel hayatındaki bazı sıkıntıların kaşıntısını tetiklediğini ifade etti. Daha önce eczaneden temin ettiği çeşitli kremler ve nemlendiriciler kullanmış ancak geçici rahatlama sağlamıştı. Fizik muayenede tipik atopik dermatit lezyonları, likenifikasyon ve yer yer ekskoriasyonlar gözlendi. Yapılan rutin kan testleri normal sınırlardaydı. Atopik dermatit (L20.9) tanısı konuldu. Hastanın ayrıca son altı aydır devam eden, uykuya dalmada güçlük, sürekli endişe hali, huzursuzluk ve konsantrasyon güçlüğü gibi belirtilerle kendini gösteren yaygın anksiyete bozukluğu (F41.1) tanısı da mevcuttu. Bu anksiyetenin, cilt şikayetlerini artırıcı bir faktör olduğu düşünülüyordu. Tedaviye topikal kortikosteroid (DERMOVATE), antibakteriyel krem (FUCİDİN) ve anksiyete için benzodiazepin (XANAX) ile başlandı. Hastaya cilt bakımı rutinleri, tetikleyicilerden kaçınma ve stres yönetimi teknikleri hakkında bilgi verildi. Psikiyatri ile konsültasyon ve psikoterapi desteği de planlandı. Hastanın genel yaşam kalitesinin hem fiziksel hem de psikolojik olarak etkilendiği, sosyal aktivitelerden uzaklaştığı ve özgüveninde düşüş yaşadığı belirtildi.",
       "date": "2025-07-11"
     }
   ],
   "reports": [
     {
-      "profile_tc_no": "12345678901",
-      "title": "Genel Cerrahi Raporu",
-      "content": "Ameliyat sonrası kontrol.",
-      "date": "2025-07-13",
-      "report_code": "RPT001"
-    },
-    {
-      "profile_tc_no": "98765432109",
-      "title": "Dahiliye Raporu",
-      "content": "Düzenli ilaç kullanımı önerildi.",
-      "date": "2025-07-14",
-      "report_code": "RPT002"
-    },
-    {
-      "profile_tc_no": "13579246810",
-      "doctor_diploma_no": "12345/67890",
-      "date": "2025-07-20",
-      "type": "Laboratuvar",
-      "results": "CRP: 10 mg/L, WBC: 9.5 x10^3/µL",
-      "imaging_results": "",
-      "conclusion": "Sinüzit tanısı doğrulandı."
-    },
-    {
-      "profile_tc_no": "24680135792",
-      "doctor_diploma_no": "38765",
-      "date": "2025-08-02",
-      "type": "Laboratuvar",
-      "results": "Kan Tahlili: Normal, Üre: 25 mg/dL, Kreatinin: 0.8 mg/dL",
-      "remarks": "Hasta genel sağlık durumu iyi."
-    },
-    {
       "profile_tc_no": "33344455566",
-      "title": "Solunum Fonksiyon Testi Raporu",
-      "content": "FVC: 3.5 L (%90), FEV1: 2.8 L (%85), FEV1/FVC: 80%. Bronkodilatör sonrası FEV1 %15 artış gösterdi. Astım tanısını destekler niteliktedir.",
+      "title": "Solunum Fonksiyon Testi ve Allerji Testi Raporu",
+      "content": "FVC: 3.5 L (%90), FEV1: 2.8 L (%85), FEV1/FVC: 80%. Bronkodilatör sonrası FEV1 %15 artış gösterdi. Allerji deri prick testinde ev tozu akarı ve polenlere karşı pozitif reaksiyon saptandı. Bulgular astım ve alerjik yapıyı desteklemektedir.",
       "date": "2025-07-09",
       "report_code": "RPT003"
     },
     {
       "profile_tc_no": "77788899900",
-      "title": "Dermatoloji Poliklinik Muayene Notu",
-      "content": "Hasta cildindeki kaşıntı ve kızarıklık şikayetleri ile başvurdu. Muayenede yaygın atopik dermatit lezyonları görüldü. Hastanın genel durumu stabil. Tedavi planı topikal kortikosteroid içerir. Ek olarak, hastanın bildirdiği anksiyete şikayetleri için psikiyatri konsültasyonu önerildi.",
+      "title": "Dermatoloji ve Psikiyatri Değerlendirme Raporu",
+      "content": "Hasta cildindeki kaşıntı ve kızarıklık şikayetleri ile başvurdu. Muayenede yaygın atopik dermatit lezyonları görüldü. Hastanın bildirdiği anksiyete şikayetleri üzerine yapılan psikiyatrik değerlendirmede yaygın anksiyete bozukluğu tanısı konuldu. Tedavi planı topikal kortikosteroid, antibakteriyel krem ve anksiyolitik içerir. Psikoterapiye başlanması önerildi.",
       "date": "2025-07-11",
       "report_code": "RPT004"
     }
